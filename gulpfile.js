@@ -26,7 +26,7 @@ gulp.task("styles", () => {
 
 gulp.task("scripts", () => {
   return gulp
-    .src("assets/scripts/zen-doodle.js")
+    .src(["assets/scripts/zen-doodle.js", "assets/scripts/zen-doodle-squares.js"])
     .pipe(
       browserify(config.browserify).on("error", gutil.log)
     )
