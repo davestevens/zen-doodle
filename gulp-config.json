@@ -1,0 +1,26 @@
+{
+  "development": {
+    "sass": {
+      "outputStyle": "nested",
+      "sassDir": "assets/styles/",
+      "sourcemap": true
+    },
+    "browserify": {
+      "debug": true,
+      "transform": ["babelify"]
+    },
+    "directory": "public"
+  },
+  "production": {
+    "sass": {
+      "outputStyle": "compressed",
+      "sassDir": "assets/styles/",
+      "sourcemap": false
+    },
+    "browserify": {
+      "debug": false,
+      "transform": ["babelify"]
+    },
+    "directory": "www"
+  }
+}
