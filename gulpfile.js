@@ -36,7 +36,7 @@ gulp.task("scripts", () => {
 
 gulp.task("copy", () => {
   return gulp
-    .src("assets/**/*.!(js|scss)")
+    .src("assets/**/*.!(js|scss|json)")
     .pipe(gulp.dest(config.directory))
     .pipe(livereload());
 });
