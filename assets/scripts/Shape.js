@@ -5,8 +5,8 @@ class Shape {
     this.points = new Points(
       options.points || [],
       {
-        size: options.size || 200,
-        percentage: options.percentage || 10
+        percentage: options.percentage || 10,
+        distanceThreshold: options.distanceThreshold || 10
       }
     );
   }

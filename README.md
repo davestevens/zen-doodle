@@ -4,7 +4,7 @@ Based on a gif i saw on [Reddit](https://www.reddit.com/r/interestingasfuck/comm
 
 ## Shape
 
-`Shape` takes a list of points (at least 3). From these points the inner structure is built using the `size` and `percentage` options. `percentage` is used for calculating the position of the next point.
+`Shape` takes a list of points (at least 3). From these points the inner structure is built using the `percentage` option. `percentage` is used for calculating the position of the next point.
 
 Reversing the order of the points results in the pattern being draw clocksize or anti-clockwise.
 

@@ -13,7 +13,6 @@ for (var key in examples) {
 
   let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
       shape = new Shape({
-        size: 200,
         percentage: 20,
         points: examples[key]
       });
