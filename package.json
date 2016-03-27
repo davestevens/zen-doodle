@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "http-server public",
     "build": "gulp",
-    "watch": "gulp watch"
+    "watch": "gulp watch",
+    "build-prod": "gulp build-prod"
   },
   "author": "Dave Stevens <dave@dstvns.co.uk>",
   "license": "MIT",
