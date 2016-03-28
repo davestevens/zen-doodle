@@ -8,7 +8,7 @@ Based on a gif i saw on [Reddit](https://www.reddit.com/r/interestingasfuck/comm
 
 Reversing the order of the points results in the pattern being draw clocksize or anti-clockwise.
 
-See `assets/scripts/examples.json` for example shapes.
+See `assets/about.json` for example shapes.
 
 ## Development
 
