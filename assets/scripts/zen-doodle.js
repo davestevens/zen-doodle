@@ -1,7 +1,7 @@
 import Shape from "./shape";
 
 class ZenDoodle {
-  constructor({ shapes, svg }) {
+  constructor({ shapes = [], svg }) {
     this.svg = svg;
     this.shapes = shapes;
   }

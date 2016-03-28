@@ -1,9 +1,9 @@
 import util from "./util";
 
 class Point {
-  constructor(options = {}) {
-    this.x = options.x;
-    this.y = options.y;
+  constructor({ x, y }) {
+    this.x = x;
+    this.y = y;
   }
 
   get x() { return this._x; }

@@ -1,12 +1,12 @@
 import Points from "./Points";
 
 class Shape {
-  constructor(options = {}) {
+  constructor({ points = [], percentage = 10, distanceThreshold = 10 }) {
     this.points = new Points(
-      options.points || [],
+      points,
       {
-        percentage: options.percentage || 10,
-        distanceThreshold: options.distanceThreshold || 10
+        percentage: percentage,
+        distanceThreshold: distanceThreshold
       }
     );
   }
