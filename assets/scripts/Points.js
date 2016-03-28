@@ -2,10 +2,9 @@ import Point from "./Point";
 import util from "./util";
 
 class Points {
-  constructor(list, { percentage = 10, distanceThreshold = 10 }) {
+  constructor(list, { percentage = 10 }) {
     this.list = list.map((point) => new Point(point));
     this.percentage = percentage;
-    this.distanceThreshold = distanceThreshold;
 
     if (this.count() < 3) {
       throw new Error("At least three points are required to make a shape!");
@@ -16,7 +15,7 @@ class Points {
     let point = (options instanceof Point) ? options : new Point(options),
         distance = point.distanceFrom(this.last());
 
-    if (distance < this.distanceThreshold) {
+    if (distance <= 1) {
       return false;
     }
 

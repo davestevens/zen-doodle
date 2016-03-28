@@ -1,4 +1,5 @@
-import Shape from "./shape";
+import Doodle from "./Doodle";
+import FullScreen from "./FullScreen";
 
 class ZenDoodle {
   constructor({ shapes = [], svg }) {
@@ -8,9 +9,14 @@ class ZenDoodle {
 
   render() {
     this.shapes.map((shapeConfig) => {
-      let shape = new Shape(shapeConfig);
-      this.svg.appendChild(shape.draw());
+      let doodle = new Doodle(shapeConfig);
+      this.svg.appendChild(doodle.draw());
     });
+  }
+
+  fullScreen() {
+    this.shapes = new FullScreen({ svg: this.svg }).build();
+    this.render();
   }
 }
 

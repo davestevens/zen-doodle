@@ -1,43 +1,77 @@
-import Points from "./Points";
+import Side from "./Side";
+import Point from "./Point";
+import util from "./util";
 
 class Shape {
-  constructor({ points = [], percentage = 10, distanceThreshold = 10 }) {
-    this.points = new Points(
-      points,
-      {
-        percentage: percentage,
-        distanceThreshold: distanceThreshold
-      }
+  constructor({ sides = [] }) {
+    this.sides = this._wrapSides(sides);
+  }
+
+  _wrapSides(sides) {
+    return sides.map((side) => {
+      return (side instanceof Side) ? side : new Side(side);
+    });
+  }
+
+  get points() {
+    return this.sides.map((side) => side.from);
+  }
+
+  split() {
+    let a = util.randomInterval(0, this.sides.length - 2),
+        b = util.randomInterval(a + 1, this.sides.length - 1),
+        randomPointA = this._randomPoint(this.sides[a]),
+        randomPointB = this._randomPoint(this.sides[b]);
+
+    let sideB2 = new Side({ from: randomPointB, to: this.sides[b].to }),
+        sideA2 = new Side({ from: randomPointA, to: this.sides[a].to });
+
+    this.sides[a].to = randomPointA;
+    this.sides[b].to = randomPointB;
+
+    let shapeA = new Shape({
+      sides: [].concat(
+        this.sides.slice(0, a),
+        this.sides[a],
+        new Side({ from: randomPointA, to: randomPointB }),
+        sideB2,
+        this.sides.slice(b + 1)
+      )
+    });
+    let shapeB = new Shape({
+      sides: [].concat(
+        sideA2,
+        this.sides.slice(a + 1, b),
+        this.sides[b],
+        new Side({ from: randomPointB, to: randomPointA })
+      )
+    });
+
+    return [].concat(
+      shapeA.area() > 200000 ? shapeA.split() : shapeA,
+      shapeB.area() > 200000 ? shapeB.split() : shapeB
     );
   }
 
-  draw() {
-    let path = document.createElementNS("http://www.w3.org/2000/svg", "path"),
-        start = "M" + this.points.last().toPath(),
-        i = 0;
+  area() {
+    let points = this.points,
+        area = 0,
+        i;
 
-    do {
-      let point = this.points.buildBetween(i, i + 1);
-      if(!this.points.add(point)) {
-        break;
-      }
-    } while(++i < 200); // Just incase the distanceThreshold doesn't kick in
-
-    path.setAttributeNS(null, "d", `${start} ${this.points.toPath()}`);
-
-    this._setStyle(path);
-
-    return path;
+    for (i = 0; i < points.length; ++i) {
+      let i2 = (i + 1) % points.length;
+      area += (points[i].x * points[i2].y) - (points[i].y * points[i2].x)
+    }
+    return Math.abs(area / 2);
   }
 
-  _setStyle(path) {
-    let length = path.getTotalLength();
-    path.style.strokeDasharray = length + " " + length;
-    path.style.strokeDashoffset = length;
+  _randomPoint(side) {
+    let ratio = util.randomInterval(33, 66) / 100;
 
-    path.setAttribute("stroke", "black");
-    path.setAttribute("stroke-width", 2);
-    path.setAttribute("fill", "none");
+    return new Point({
+      x: side.from.x + (ratio * (side.to.x - side.from.x)),
+      y: side.from.y + (ratio * (side.to.y - side.from.y))
+    });
   }
 }
 
