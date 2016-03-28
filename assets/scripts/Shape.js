@@ -2,15 +2,11 @@ import Side from "./Side";
 import Point from "./Point";
 import util from "./util";
 
+const MAX_AREA = 100000;
+
 class Shape {
   constructor({ sides = [] }) {
     this.sides = this._wrapSides(sides);
-  }
-
-  _wrapSides(sides) {
-    return sides.map((side) => {
-      return (side instanceof Side) ? side : new Side(side);
-    });
   }
 
   get points() {
@@ -18,8 +14,9 @@ class Shape {
   }
 
   split() {
-    let a = util.randomInterval(0, this.sides.length - 2),
-        b = util.randomInterval(a + 1, this.sides.length - 1),
+    let longestSides = this._twoLongestSides(),
+        a = longestSides[0],
+        b = longestSides[1],
         randomPointA = this._randomPoint(this.sides[a]),
         randomPointB = this._randomPoint(this.sides[b]);
 
@@ -35,6 +32,7 @@ class Shape {
         this.sides.slice(b + 1)
       )
     });
+
     let shapeB = new Shape({
       sides: [].concat(
         sideA2,
@@ -45,8 +43,8 @@ class Shape {
     });
 
     return [].concat(
-      shapeA.area() > 200000 ? shapeA.split() : shapeA,
-      shapeB.area() > 200000 ? shapeB.split() : shapeB
+      shapeA.area() > MAX_AREA ? shapeA.split() : shapeA,
+      shapeB.area() > MAX_AREA ? shapeB.split() : shapeB
     );
   }
 
@@ -69,6 +67,29 @@ class Shape {
       x: side.from.x + (ratio * (side.to.x - side.from.x)),
       y: side.from.y + (ratio * (side.to.y - side.from.y))
     });
+  }
+
+  _wrapSides(sides) {
+    return sides.map((side) => {
+      return (side instanceof Side) ? side : new Side(side);
+    });
+  }
+
+  _twoLongestSides() {
+    return this._longestSides()
+      .slice(0, 2)
+      .sort((a, b) => a - b);
+  }
+
+  _longestSides() {
+    return this.sides.map((side, index) => {
+      return {
+        index: index,
+        l: util.distance(side.from, side.to)
+      }
+    })
+      .sort((a, b) => b.l - a.l)
+      .map((side) => side.index);
   }
 }
 
