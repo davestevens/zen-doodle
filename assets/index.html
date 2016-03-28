@@ -17,5 +17,57 @@
     <p><a href="squares.html">Squares</a></p>
 
     <script type="text/javascript" src="zen-doodle.js"></script>
+    <script type="text/javascript">
+      var shapes = document.getElementById("shapes"),
+          examples = {
+            "triangle": [
+              { "x": 0,   "y": 200 },
+              { "x": 200, "y": 200 },
+              { "x": 100, "y": 0 }
+            ],
+            "square": [
+              { "x": 0,   "y": 200 },
+              { "x": 200, "y": 200 },
+              { "x": 200, "y": 0 },
+              { "x": 0,   "y": 0 }
+            ],
+            "pentagon": [
+              { "x": 100, "y": 0 },
+              { "x": 5,   "y": 69 },
+              { "x": 41,  "y": 181 },
+              { "x": 159, "y": 181 },
+              { "x": 195, "y": 69 }
+            ],
+            "hexagon": [
+              { "x": 150, "y": 13 },
+              { "x": 50,  "y": 13 },
+              { "x": 0,   "y": 100 },
+              { "x": 50,  "y": 187 },
+              { "x": 150, "y": 187 },
+              { "x": 200, "y": 100 }
+            ]
+          };
+
+      for (var key in examples) {
+        var element = document.createElement("div");
+        element.className = "shape";
+
+        var header = document.createElement("h2");
+        header.appendChild(document.createTextNode(key));
+        element.appendChild(header);
+
+        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg"),
+            shape = new ZenDoodle.Shape({
+              percentage: 20,
+              points: examples[key]
+            });
+        svg.setAttribute("width", 200);
+        svg.setAttribute("height", 200);
+        svg.appendChild(shape.draw());
+        element.appendChild(svg);
+
+        shapes.appendChild(element);
+      }
+     </script>
   </body>
 </html>

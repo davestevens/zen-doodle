@@ -17,6 +17,38 @@
 
   <body>
     <svg id="stage" width="100%" height="100%"></svg>
-    <script type="text/javascript" src="zen-doodle-squares.js"></script>
+    <script type="text/javascript" src="zen-doodle.js"></script>
+    <script type="text/javascript">
+      var svg = document.getElementById("stage"),
+          rect = svg.getBoundingClientRect(),
+          width = rect.width,
+          height = rect.height;
+
+      var calc = function (dimension, size) {
+        if (size > dimension) return calc(dimension, (size / 3));
+        return dimension / Math.floor(dimension / size);
+      }
+
+      var size = 300,
+          calculatedWidth = calc(width, size),
+          calculatedHeight = calc(height, size);
+
+      for (var row = 0; row < height; row += calculatedHeight) {
+        for (var column = 0; column < width; column += calculatedWidth) {
+          var points = [
+            { x: column + 0,               y: row + 0 },
+            { x: column + calculatedWidth, y: row + 0 },
+            { x: column + calculatedWidth, y: row + calculatedHeight },
+            { x: column + 0,               y: row + calculatedHeight }
+          ]
+
+          var shape = new ZenDoodle.Shape({
+            percentage: 10,
+            points: parseInt(Math.random() * 2) ? points : points.reverse()
+          });
+          svg.appendChild(shape.draw());
+        }
+      }
+    </script>
   </body>
 </html>

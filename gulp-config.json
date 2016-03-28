@@ -7,6 +7,7 @@
     },
     "browserify": {
       "debug": true,
+      "standalone": "ZenDoodle",
       "transform": ["babelify"]
     },
     "directory": "public"
@@ -19,6 +20,7 @@
     },
     "browserify": {
       "debug": false,
+      "standalone": "ZenDoodle",
       "transform": ["babelify"]
     },
     "directory": "www"
