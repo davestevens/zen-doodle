@@ -31,7 +31,8 @@
 
       var size = 300,
           calculatedWidth = calc(width, size),
-          calculatedHeight = calc(height, size);
+          calculatedHeight = calc(height, size),
+          shapes = [];
 
       for (var row = 0; row < height; row += calculatedHeight) {
         for (var column = 0; column < width; column += calculatedWidth) {
@@ -42,13 +43,18 @@
             { x: column + 0,               y: row + calculatedHeight }
           ]
 
-          var shape = new ZenDoodle.Shape({
+          shapes.push({
             percentage: 10,
             points: parseInt(Math.random() * 2) ? points : points.reverse()
           });
-          svg.appendChild(shape.draw());
         }
       }
+
+      var zenDoodle = new ZenDoodle({
+        shapes: shapes,
+        svg: svg
+      });
+      zenDoodle.render();
     </script>
   </body>
 </html>
