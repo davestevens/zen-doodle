@@ -26,13 +26,10 @@ class Shape {
     let sideB2 = new Side({ from: randomPointB, to: this.sides[b].to }),
         sideA2 = new Side({ from: randomPointA, to: this.sides[a].to });
 
-    this.sides[a].to = randomPointA;
-    this.sides[b].to = randomPointB;
-
     let shapeA = new Shape({
       sides: [].concat(
         this.sides.slice(0, a),
-        this.sides[a],
+        new Side({ from: this.sides[a].from, to: randomPointA }),
         new Side({ from: randomPointA, to: randomPointB }),
         sideB2,
         this.sides.slice(b + 1)
@@ -42,7 +39,7 @@ class Shape {
       sides: [].concat(
         sideA2,
         this.sides.slice(a + 1, b),
-        this.sides[b],
+        new Side({ from: this.sides[b].from, to: randomPointB }),
         new Side({ from: randomPointB, to: randomPointA })
       )
     });
