@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet">
+    <title>Zen Doodle - About</title>
+  </head>
+
+  <body>
+    <h1>Zen Doodle</h1>
+    <p>Based on a gif i saw on <a href="https://www.reddit.com/r/interestingasfuck/comments/4bm5yz/zen_doodle/" target="_blank">Reddit</a></p>
+
+    <div id="shapes"></div>
+
+    <h2>Full Page View</h2>
+    <p><a href="index.html">Full Screen</a></p>
+
+    <h2>Code</h2>
+    <p><a href="https://github.com/davestevens/zen-doodle" target="_blank">Github</a></p>
+
+    <script type="text/javascript" src="zen-doodle.js"></script>
+    <script type="text/javascript">
+      var shapes = document.getElementById("shapes"),
+          examples = {
+            "triangle": [
+              { "x": 0,   "y": 200 },
+              { "x": 200, "y": 200 },
+              { "x": 100, "y": 0 }
+            ],
+            "square": [
+              { "x": 0,   "y": 200 },
+              { "x": 200, "y": 200 },
+              { "x": 200, "y": 0 },
+              { "x": 0,   "y": 0 }
+            ],
+            "pentagon": [
+              { "x": 100, "y": 0 },
+              { "x": 5,   "y": 69 },
+              { "x": 41,  "y": 181 },
+              { "x": 159, "y": 181 },
+              { "x": 195, "y": 69 }
+            ],
+            "hexagon": [
+              { "x": 150, "y": 13 },
+              { "x": 50,  "y": 13 },
+              { "x": 0,   "y": 100 },
+              { "x": 50,  "y": 187 },
+              { "x": 150, "y": 187 },
+              { "x": 200, "y": 100 }
+            ]
+          };
+
+      for (var key in examples) {
+        var element = document.createElement("div");
+        element.className = "shape";
+
+        var header = document.createElement("h2");
+        header.appendChild(document.createTextNode(key));
+        element.appendChild(header);
+
+        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("width", 200);
+        svg.setAttribute("height", 200);
+        element.appendChild(svg);
+
+        var zenDoodle = new ZenDoodle({
+          shapes: [
+            {
+              percentage: 20,
+              points: examples[key]
+            }
+          ],
+          svg: svg
+        });
+        zenDoodle.render();
+
+        shapes.appendChild(element);
+      }
+     </script>
+  </body>
+</html>
