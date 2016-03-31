@@ -26,7 +26,7 @@ class Points {
   buildBetween(a, b) {
     let pointA = this.at(a),
         pointB = this.at(b),
-        ratio = this.percentage / util.distance(pointA, pointB);
+        ratio = this.percentage / 100;
 
     return new Point({
       x: pointA.x + (ratio * (pointB.x - pointA.x)),
