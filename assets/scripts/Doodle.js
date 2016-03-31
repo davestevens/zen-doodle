@@ -1,5 +1,7 @@
 import Points from "./Points";
 
+const POINTS_THRESHOLD = 1000;
+
 class Shape {
   constructor({ points = [], percentage = 10 }) {
     this.points = new Points(points, { percentage: percentage });
@@ -15,7 +17,7 @@ class Shape {
       if(!this.points.add(point)) {
         break;
       }
-    } while(++i < 500); // Just incase the distanceThreshold doesn't kick in
+    } while(++i < POINTS_THRESHOLD);
 
     path.setAttributeNS(null, "d", `${start} ${this.points.toPath()}`);
 
